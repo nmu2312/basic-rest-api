@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web API</title>
+  <!-- Load scripts -->
+  <script src="js/search.js" defer></script>
+  <script src="js/users.js" defer></script>
+  <script src="js/index.js" defer></script>
+</head>
+<body>
+  <main>
+    <h1>Re:ゼロから始めるユーザー編集</h1>
+    <lable for="uid">ID</label>
+    <input type="text" id="uid" placeholder="自動採番されます" disabled />
+    <lable for="name">ユーザー名</label>
+    <input type="text" id="name" />
+    <lable for="profile">プロフィール</label>
+    <input type="text" id="profile" />
+    <lable for="date-of-birth">誕生日</label>
+    <input type="text" id="date-of-birth" />
+    <button id="save-btn">保存する</button>
+    <button id="cancel-btn">キャンセル</button>
+    <p>このユーザーを削除しますか？
+      <button id="delete-btn">削除する</button>
+    </p>
+  </main>
+</body>
+</html>
