@@ -6,6 +6,33 @@ const usersModule = (() => {
   const headers = new Headers();
   headers.set("Content-type", "application/json");
 
+  const handleError = async (res) => {
+    const resJson = await res.json();
+
+    switch(res.status) {
+      case 200:
+        alert(resJson.message);
+        window.location.href = "/";
+        break;
+
+      case 201:
+        alert(resJson.message);
+        window.location.href = "/";
+        break;
+
+      case 400:
+        alert(resJson.error);
+        break
+      case 404:
+        alert(resJson.error);
+      case 500:
+        alert(resJson.error);
+      default:
+        alert("何らかのエラーが発生しました");
+        break;
+    }
+  }
+
   return {
     fetchAllUsers: async () => {
       const res = await fetch(BASE_URL);
@@ -20,6 +47,7 @@ const usersModule = (() => {
                         <td>${user.date_of_birth}</td>
                         <td>${user.created_at}</td>
                         <td>${user.updated_at}</td>
+                        <td><a href="edit.html?uid=${user.id}">編集</a></td>
                       </tr>`;
         document.getElementById('users-list').insertAdjacentHTML('beforeend', body);
       }
@@ -43,10 +71,15 @@ const usersModule = (() => {
 
       });
 
+      return handleError(res);
+    },
+    setExistingValue: async (uid) => {
+      const res = await fetch(BASE_URL + "/" + uid);
       const resJson = await res.json();
 
-      alert(resJson.message);
-      window.location.href = "/";
+      document.getElementById('name').value = resJson.name;
+      document.getElementById('profile').value = resJson.profile;
+      document.getElementById('date-of-birth').value = resJson.date_of_birth;
     },
     saveUser: async (uid) => {
       const name = document.getElementById("name").value;
@@ -67,10 +100,8 @@ const usersModule = (() => {
 
       });
 
-      const resJson = await res.json();
+      return handleError(res);
 
-      alert(resJson.message);
-      window.location.href = "/";
     },
     deleteUser: async (uid) => {
       const ret = window.confirm('このういーざーを削除しますか?');
@@ -82,11 +113,10 @@ const usersModule = (() => {
           method: "DELETE",
           headers: headers,
         });
+
+        return handleError(res);
       }
 
-      const resJson = await res.json();
-      alert(resJson.message);
-      window.location.href = '/';
     }
 
   }

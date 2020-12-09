@@ -33,7 +33,7 @@ const indexModule = (() => {
       document.getElementById('delete-btn').addEventListener('click', function(){
         return usersModule.deleteUser(uid);
       });
-      break;
+      return usersModule.setExistingValue(uid);
     default:
       break;
   }
